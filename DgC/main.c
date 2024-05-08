@@ -3,7 +3,14 @@
 #include <unistd.h>
 #include <time.h>
 
+void tutorial();
+void fase1();
+void derrota();
+void vitoria();
+
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
+int pvida = 1;
+
 void tutorial(){ //função para rodar o tutorial quando selecionado no menu inicial
 	char tutorial[21][51];
 	int i;
@@ -45,8 +52,9 @@ void tutorial(){ //função para rodar o tutorial quando selecionado no menu inici
     		}	
 		}
 		for(i = 0; i < 21; i++){
+			printf("\t\t");
 			for(j = 0; j < 51; j++){
-				printf("\t\t%c", tutorial[i][j]);
+				printf("%c", tutorial[i][j]);
 			}
 			printf("\n");
 		}
@@ -124,7 +132,7 @@ void tutorial(){ //função para rodar o tutorial quando selecionado no menu inici
 	getch();
 }
 
-int fase1(){
+void fase1(){
 	char mapa1[10][20];
 	char player;
 	char porta1;
@@ -141,16 +149,15 @@ int fase1(){
 	int j;
 	int ix;
 	int iy;
-	int pvida;
 	int c1x;
 	int c1y;
 	char tecla;
 	int inimov;
 	int inival;
 	
+	pvida = 1;
 	pchave1 = 0;
 	pchave2 = 0;
-	pvida = 1;
 	player = '&';
 	chave1 = '@';
 	chave2 = '@';
@@ -278,7 +285,8 @@ int fase1(){
      		   break;
      	}
      	if(pvida == 0){
-     		return;;
+     		derrota();
+     		return;
 		}
 		inimov = rand()%2;
 		inival = rand()%2;
@@ -305,12 +313,12 @@ int fase1(){
 		
 		if(mapa1[6][0]!='D'&&mapa1[6][0]!='*'){
 				if(mapa1[py][px]==mapa1[6][0]){
-					tecla = 27;
+					vitoria();
+					return;
 				}
 		}
 				
 	}while(tecla!=27);
-	return pvida;
 }
 
 void derrota(){
@@ -321,18 +329,18 @@ void derrota(){
 		system("cls");
 		
 		
-		printf("*****    *******  *******  *******  ********  ********  ********\n");
-		printf("**  **   **       **   **  **   **  **    **  ********  ********\n");
-		printf("**   **  *******  *******  *******  **    **     **     **    **\n");
-		printf("**  **   **       **  **   **  **   **    **     **     ********\n");
-		printf("*****    *******  **   **  **   **  ********     **     **    **\n");
+		printf(" *****    *******  *******  *******  ********  ********  ********\n");
+		printf(" **  **   **       **   **  **   **  **    **  ********  ********\n");
+		printf(" **   **  *******  *******  *******  **    **     **     **    **\n");
+		printf(" **  **   **       **  **   **  **   **    **     **     ********\n");
+		printf(" *****    *******  **   **  **   **  ********     **     **    **\n");
 		
 		if(opcao==1){
-			printf("> Tentar novamente!\n");
-			printf("Menu inicial");
+			printf(" 		 > Tentar novamente!\n");
+			printf(" 		 Menu inicial");
 		}else if(opcao==2){
-			printf("Tentar novamente!\n");
-			printf("> Menu inicial");
+			printf(" 		 Tentar novamente!\n");
+			printf("		 > Menu inicial");
 		}
 		
 		tecla = getch();
@@ -355,6 +363,7 @@ void derrota(){
 			case 13:
 				if(opcao==1){
 					fase1();
+					return;
 				}else if(opcao==2){
 					return;
 				}
@@ -362,6 +371,27 @@ void derrota(){
 		}
 	}while(tecla!=27);
 }
+
+void vitoria(){
+	char tecla;
+	int vit;
+	
+	do{
+		system ("cls");
+		
+		printf(" **        **  **  ********  ********  ********  **  ********\n");
+		printf("  **      **   **  ********  **    **  **    **  **  ********\n");
+		printf("   **    **    **     **     **    **  ********  **  **    **\n");
+		printf("    **  **     **     **     **    **  **  **    **  ********\n");
+		printf("     ****      **     **     ********  **   **   **  **    **\n");
+	
+		printf("		 Parabens! Voce chegou ao fim\n");
+		printf("			Obrigado por jogar!");
+		
+		tecla = getch();
+	}while(tecla!=13);
+}
+
 int main(int argc, char *argv[]) {
 	int start = 1;
 	char tecla;
@@ -372,31 +402,31 @@ int main(int argc, char *argv[]) {
 		
 		system("cls");
 		
-		printf(" **     *   *  *   *  ******   ******  *******  *   *\n");
-		printf(" *  *   *   *  **  *  *        *       *     *  **  *\n");
-		printf(" *   *  *   *  * * *  *   ***  ******  *     *  * * *\n");
-		printf(" *  *   *   *  *  **  *     *  *       *     *  *  **\n");
-		printf(" **     *****  *   *  *******  ******  *******  *   *\n\n");
-		printf("*****  *****  *****  *         *  *       ******  *****\n");
-		printf("*      *   *  *   *  *    *    *  *       *       *   *\n");
-		printf("*      *****  *****   *   *   *   *       ******  *****\n");
-		printf("*      *  *   *   *    *  *  *    *       *       *  * \n");
-		printf("*****  *   *  *   *     ** **     ******  ******  *   *\n\n");
+		printf("  **     *   *  *   *  ******   ******  *******  *   *\n");
+		printf("  *  *   *   *  **  *  *        *       *     *  **  *\n");
+		printf("  *   *  *   *  * * *  *   ***  ******  *     *  * * *\n");
+		printf("  *  *   *   *  *  **  *     *  *       *     *  *  **\n");
+		printf("  **     *****  *   *  *******  ******  *******  *   *\n\n");
+		printf(" *****  *****  *****  *         *  *       ******  *****\n");
+		printf(" *      *   *  *   *  *    *    *  *       *       *   *\n");
+		printf(" *      *****  *****   *   *   *   *       ******  *****\n");
+		printf(" *      *  *   *   *    *  *  *    *       *       *  * \n");
+		printf(" *****  *   *  *   *     ** **     ******  ******  *   *\n\n");
 	
 		if(start==1){
-			printf(">  Iniciar\n");
-			printf("  Tutorial\n");
-			printf("  Sair\n");
+			printf("			>  Iniciar\n");
+			printf("			  Tutorial\n");
+			printf("			  Sair\n");
 		}
 		if(start==2){
-			printf("  Iniciar\n");
-			printf(">  Tutorial\n");
-			printf("  Sair\n");
+			printf("			  Iniciar\n");
+			printf("			>  Tutorial\n");
+			printf("			  Sair\n");
 		}
 		else if(start==3){
-			printf("  Iniciar\n");
-			printf("  Tutorial\n");
-			printf(">  Sair\n");
+			printf("		  	  Iniciar\n");
+			printf("		  	  Tutorial\n");
+			printf("			>  Sair\n");
 		}
 		
 		tecla = getch();
@@ -424,9 +454,6 @@ int main(int argc, char *argv[]) {
 						printf("Que comece a jornada!");
 						sleep (3);
 						fase1();
-						if(pvida==0){
-							derrota();
-						}
 						break;
 					case 2:
 						printf("Iniciando o tutorial!");
@@ -435,7 +462,7 @@ int main(int argc, char *argv[]) {
 						break;
 					case 3:
 						system("cls");
-						printf("Ate a proxima aventureiro!");
+						printf("Ate a proxima, aventureiro!");
 						sleep(3);
 						tecla = 27;
 						break;
