@@ -3,14 +3,16 @@
 #include <unistd.h>
 #include <time.h>
 
+//validação das funções
 void tutorial();
 void fase1();
 void derrota();
 void vitoria();
 void fase2();
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+//variaveis globais
 int pvida = 3;
+int fase = 1;
 
 void tutorial(){ //função para rodar o tutorial quando selecionado no menu inicial
 	char tutorial[21][51];
@@ -332,6 +334,7 @@ void fase1(){
 		if(mapa1[6][0]!='D'&&mapa1[6][0]!='*'){
 				if(mapa1[py][px]==mapa1[6][0]){
 					fase2();
+					fase++;
 					return;
 				}
 		}
@@ -382,7 +385,6 @@ void derrota(){
 				if(opcao==1){
 					pvida = 3;
 					fase1();
-					return;
 				}else if(opcao==2){
 					return;
 				}
@@ -470,6 +472,23 @@ void fase2(){
 	srand(time(NULL));
 	
 	do{
+		//Condição de derrota do player para mostro
+		if(py == i1y&&px == i1x){
+			pvida--;
+			fase2();
+			return;
+		}
+		if(py == i2y&&px == i2x){
+			pvida--;
+			fase2();
+			return;
+		}
+		if(py == i3y&&px == i3x){
+			pvida--;
+			fase2();
+			return;
+		}
+		
 		//se o player perde todas as vidas, game over
 		if(pvida == 0){
 			derrota();
@@ -593,24 +612,6 @@ void fase2(){
 			vitoria();
 			return;
 		}
-		
-		//Condição de derrota do player para mostro
-		if(py == i1y&&px == i1x){
-			pvida--;
-			fase2();
-			return;
-		}
-		if(py == i2y&&px == i2x){
-			pvida--;
-			fase2();
-			return;
-		}
-		if(py == i3y&&px == i3x){
-			pvida--;
-			fase2();
-			return;
-		}
-		
 		
 		//define se vai mudar eixo X ou Y e se vai aumentar ou diminuir um valor do inimigo 1
 		inimov = rand()%2;
@@ -749,7 +750,7 @@ int main(int argc, char *argv[]) {
 					case 1:
 						printf("Que comece a jornada!");
 						sleep (3);
-						fase2();
+						fase1();
 						break;
 					case 2:
 						printf("Iniciando o tutorial!");
